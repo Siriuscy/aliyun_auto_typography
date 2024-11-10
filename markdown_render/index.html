@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Markdown to Image Service</title>
+</head>
+<body>
+    <textarea id="markdownInput" rows="10" cols="50"></textarea><br>
+    <button onclick="generateImage()">生成图片</button>
+    <img id="generatedImage" style="display:none;"/>
+    <script>
+        async function generateImage() {
+            const markdownText = document.getElementById('markdownInput').value;
+            try {
+                const response = await fetch('http://localhost:3000/generate-image', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ markdown: markdownText }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const imageBuffer = await response.blob();
+                const imgURL = URL.createObjectURL(imageBuffer);
+                const imgElement = document.getElementById('generatedImage');
+                imgElement.src = imgURL;
+                imgElement.style.display = 'block';
+            } catch (error) {
+                console.error('Error generating image:', error);
+            }
+        }
+    </script>
+</body>
+</html>
