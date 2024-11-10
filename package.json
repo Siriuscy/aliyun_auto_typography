@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@asposecloud/aspose-html-cloud": "^22.12.1",
     "cors": "^2.8.5",
     "dom-to-image-more": "^3.5.0",
     "express": "^4.21.1",
